@@ -10,6 +10,11 @@ const ButtonsPage = () => {
             <Button variant='secondaryOutline'>secondary outline</Button>
             <Button variant='danger'>danger</Button>
             <Button variant='dangerOutline'>danger outline</Button>
+            <Button variant='premium'>premium</Button>
+            <Button variant='premiumOutline'>premium outline</Button>
+            <Button variant='ghost'>ghost</Button>
+            <Button variant='sidebar'>sidebar</Button>
+            <Button variant='sidebarOutline'>sidebar outline</Button>
         </div>
     )
 }

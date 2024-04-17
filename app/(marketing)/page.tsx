@@ -5,7 +5,7 @@ export default function Home() {
 return (
 
 <div>
-  <Button size='lg'>Click Me</Button>
+  <p>Landing page</p>
   </div>  
 )
 }

@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, SignUpButton, SignInButton } from "@clerk/clerk-react";
 import {Loader} from 'lucide-react'
@@ -12,28 +13,28 @@ return (
   </div>
   <div className=" flex flex-col items-center gap-y-8">
     <h1>Learn, practice, and master new languages with Lingo.</h1> 
-    </div>
     <div>
       <ClerkLoading>
-        <Loader className=" h-5 w-5 to-muted-foreground animate-spin" />
+        <Loader className=" h-5 w-5 text-muted-foreground animate-spin" />
       </ClerkLoading>
-      <ClerkLoaded>
+      {/* <ClerkLoaded>
         <SignedOut>
-          <SignUpButton mode="modal" afterSignInUrl="/learn" afterSignUpUrl="/learn">
-            <Button size={'lg'} variant={'secondary'} className="w-full">
-              Get Started
-            </Button>
-          </SignUpButton>
-          <SignInButton mode="modal" afterSignInUrl="/learn" afterSignUpUrl="/learn">
-            <Button size={'lg'} variant={'primaryOutline'} className="w-full">
-              I already have an account
-            </Button>
-          </SignInButton>
+        <SignUpButton mode="modal" afterSignInUrl="/learn" afterSignUpUrl="/learn">
+        <Button size={'lg'} variant={'secondary'} className="w-full">
+        Get Started
+        </Button>
+        </SignUpButton>
+        <SignInButton mode="modal" afterSignInUrl="/learn" afterSignUpUrl="/learn">
+        <Button size={'lg'} variant={'primaryOutline'} className="w-full">
+        I already have an account
+        </Button>
+        </SignInButton>
         </SignedOut>
         <SignedIn>
-
+        
         </SignedIn>
-      </ClerkLoaded>
+      </ClerkLoaded> */}
+      </div>
     </div>
   </div>  
 )

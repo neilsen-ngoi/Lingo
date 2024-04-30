@@ -32,8 +32,7 @@ export const units = pgTable("units", {
   order: integer("order").notNull(),
 });
 
-// unit relations
-const unitRelations = relations(units, ({ many, one }) => ({
+export const unitRelations = relations(units, ({ many, one }) => ({
   course: one(courses, {
     fields: [units.courseId],
     references: [courses.id],

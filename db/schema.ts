@@ -1,11 +1,11 @@
 import { relations } from "drizzle-orm";
 import {
-  serial,
-  pgTable,
-  text,
-  integer,
   boolean,
+  integer,
   pgEnum,
+  pgTable,
+  serial,
+  text,
 } from "drizzle-orm/pg-core";
 
 export const courses = pgTable("courses", {
@@ -14,20 +14,17 @@ export const courses = pgTable("courses", {
   imageSrc: text("image_src").notNull(),
 });
 
-//store the current active course id
 export const coursesRelations = relations(courses, ({ many }) => ({
   userProgress: many(userProgress),
   units: many(units),
 }));
-// courses can have many units but each unit can only have one course
+
 export const units = pgTable("units", {
   id: serial("id").primaryKey(),
-  title: text("title").notNull(), // eg unit 1
-  description: text("description").notNull(), // eg spanish 101
+  title: text("title").notNull(), // Unit 1
+  description: text("description").notNull(), // Learn the basics of spanish
   courseId: integer("course_id")
-    .references(() => courses.id, {
-      onDelete: "cascade",
-    })
+    .references(() => courses.id, { onDelete: "cascade" })
     .notNull(),
   order: integer("order").notNull(),
 });
@@ -43,14 +40,14 @@ export const unitsRelations = relations(units, ({ many, one }) => ({
 export const lessons = pgTable("lessons", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
-  unitId: integer("unit_id").references(() => units.id, {
-    onDelete: "cascade",
-  }),
+  unitId: integer("unit_id")
+    .references(() => units.id, { onDelete: "cascade" })
+    .notNull(),
   order: integer("order").notNull(),
 });
 
 export const lessonsRelations = relations(lessons, ({ one, many }) => ({
-  units: one(units, {
+  unit: one(units, {
     fields: [lessons.unitId],
     references: [units.id],
   }),
@@ -78,11 +75,11 @@ export const challengesRelations = relations(challenges, ({ one, many }) => ({
   challengeProgress: many(challengeProgress),
 }));
 
-export const challengeOptions = pgTable("challenges_Options", {
+export const challengeOptions = pgTable("challenge_options", {
   id: serial("id").primaryKey(),
-  challengeId: integer("challenge_id").references(() => challenges.id, {
-    onDelete: "cascade",
-  }),
+  challengeId: integer("challenge_id")
+    .references(() => challenges.id, { onDelete: "cascade" })
+    .notNull(),
   text: text("text").notNull(),
   correct: boolean("correct").notNull(),
   imageSrc: text("image_src"),
@@ -101,10 +98,10 @@ export const challengeOptionsRelations = relations(
 
 export const challengeProgress = pgTable("challenge_progress", {
   id: serial("id").primaryKey(),
-  userId: text("user_id").notNull(), //  TODO:confirm this doesnt break
-  challengeId: integer("challenge_id").references(() => challenges.id, {
-    onDelete: "cascade",
-  }),
+  userId: text("user_id").notNull(), // TODO: Confirm this doesn't break
+  challengeId: integer("challenge_id")
+    .references(() => challenges.id, { onDelete: "cascade" })
+    .notNull(),
   completed: boolean("completed").notNull().default(false),
 });
 

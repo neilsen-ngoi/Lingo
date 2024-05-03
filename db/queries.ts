@@ -52,10 +52,16 @@ export const getUnits = cache(async () => {
       },
     },
   });
+
   // avoid accessing db to check if a challenge is complete
   // TODO: explore if using reduce() works as well
   const normalizeData = data.map((unit) => {
     const lessonsWithCompletedStatus = unit.lessons.map((lesson) => {
+      // fix lessons appearing as complete when not
+      if (lesson.challenges.length === 0) {
+        return { ...lesson, completed: false };
+      }
+
       const allCompletedChallenges = lesson.challenges.every((challenge) => {
         return (
           challenge.challengeProgress &&

@@ -10,6 +10,30 @@ type Props = {
   lessons: (typeof lessons.$inferSelect & {
     completed: boolean;
   })[];
+  //   activeLesson:
+  //     | {
+  //         id: number;
+  //         title: string;
+  //         order: number;
+  //         unitId: number;
+  //         unit: {
+  //           id: number;
+  //           title: string;
+  //           description: string;
+  //           courseId: number;
+  //           order: number;
+  //         };
+  //         challenges: {
+  //           id: number;
+  //           order: number;
+  //           lessonId: number;
+  //           type: "SELECT" | "ASSIST";
+  //           question: string;
+  //           challengeProgress: any[];
+  //         }[];
+  //       }
+  //     | undefined;
+  //   activeLessonPercentage: number;
   activeLesson:
     | (typeof lessons.$inferSelect & {
         unit: typeof units.$inferSelect;

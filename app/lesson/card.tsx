@@ -1,7 +1,8 @@
 import { challenges } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-
+import { useCallback } from "react";
+import { useAudio, useKey } from "react-use";
 type Props = {
   id: number;
   imageSrc: string | null;
@@ -27,9 +28,19 @@ export const Card = ({
   status,
   type,
 }: Props) => {
+  // add audio to clicked option
+  const [audio, _, controls] = useAudio({ src: audioSrc || "" });
+  const handleClick = useCallback(() => {
+    if (disabled) return;
+    controls.play();
+    onClick();
+  }, [disabled, onClick, controls]);
+  // maps the shortcut id of challenge option to handleclick event listener
+  useKey(shortcut, handleClick, {}, [handleClick]);
+
   return (
     <div
-      onClick={() => {}}
+      onClick={handleClick}
       className={cn(
         "h-full border-2 rounded-xl border-b-2 hover:bg-black/5 p-4 lg:p-6 cursor-pointer active:border-b-2",
         selected && "border-sky-300 bg-sky-100 hover:bg-sky-100",
@@ -43,6 +54,7 @@ export const Card = ({
         type === "ASSIST" && "lg:p-3 w-full"
       )}
     >
+      {audio}
       {imageSrc && (
         <div className=" relative aspect-square mb-4 max-h-[80px] lg:max-h=[150px]">
           <Image src={imageSrc} fill alt="text" />

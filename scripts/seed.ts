@@ -102,11 +102,24 @@ const main = async () => {
         order: 1,
         question: 'How do you say "Man"?',
       },
+      {
+        id: 2,
+        lessonId: 1, // Nouns
+        type: "ASSIST",
+        order: 2,
+        question: "The Man",
+      },
+      {
+        id: 3,
+        lessonId: 1, // Nouns
+        type: "SELECT",
+        order: 3,
+        question: "Which one is Zombie?",
+      },
     ]);
     // seed challengeOptions
     await db.insert(schema.challengeOptions).values([
       {
-        id: 1,
         challengeId: 1, // How do you say "Man"?
         imageSrc: "/boy.svg",
         correct: true,
@@ -114,7 +127,6 @@ const main = async () => {
         audioSrc: "/es_man.mp3",
       },
       {
-        id: 2,
         challengeId: 1, // How do you say "Man"?
         imageSrc: "/girl.svg",
         correct: false,
@@ -122,10 +134,52 @@ const main = async () => {
         audioSrc: "/es_woman.mp3",
       },
       {
-        id: 3,
         challengeId: 1, // How do you say "Man"?
         imageSrc: "/zombie.svg",
         correct: false,
+        text: "el zombi",
+        audioSrc: "/es_zombie.mp3",
+      },
+    ]);
+    await db.insert(schema.challengeOptions).values([
+      {
+        challengeId: 2,
+        correct: true,
+        text: "el hombre",
+        audioSrc: "/es_man.mp3",
+      },
+      {
+        challengeId: 2,
+        correct: false,
+        text: "la mujer",
+        audioSrc: "/es_woman.mp3",
+      },
+      {
+        challengeId: 2,
+        correct: false,
+        text: "el zombi",
+        audioSrc: "/es_zombie.mp3",
+      },
+    ]);
+    await db.insert(schema.challengeOptions).values([
+      {
+        challengeId: 3,
+        imageSrc: "/boy.svg",
+        correct: false,
+        text: "el hombre",
+        audioSrc: "/es_man.mp3",
+      },
+      {
+        challengeId: 3,
+        imageSrc: "/girl.svg",
+        correct: false,
+        text: "la mujer",
+        audioSrc: "/es_woman.mp3",
+      },
+      {
+        challengeId: 3,
+        imageSrc: "/zombie.svg",
+        correct: true,
         text: "el zombi",
         audioSrc: "/es_zombie.mp3",
       },

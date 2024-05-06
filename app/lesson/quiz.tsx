@@ -9,6 +9,7 @@ import { Footer } from "./footer";
 import { upsertChallengeProgress } from "@/actions/challenge-progress";
 import { toast } from "sonner";
 import { reduceHearts } from "@/actions/user-progress";
+import { useAudio } from "react-use";
 
 type Props = {
   initialPercentage: number;
@@ -28,6 +29,11 @@ export const Quiz = ({
   initialPercentage,
   userSubscription,
 }: Props) => {
+  const [correctAudio, _c, correctControls] = useAudio({ src: "/correct.wav" });
+  const [inCorrectAudio, _i, inCorrectControls] = useAudio({
+    src: "/incorrect.wav",
+  });
+
   const [pending, startTransition] = useTransition();
   //states
   const [hearts, setHearts] = useState(initialHearts);
@@ -80,6 +86,7 @@ export const Quiz = ({
               console.error("Missing hearts");
               return;
             }
+            correctControls.play();
             setStatus("correct");
             setPercentage((prev) => prev + 100 / challenges.length);
             // check for 100% completion of lesson
@@ -98,6 +105,7 @@ export const Quiz = ({
               console.error("Missing hearts");
               return;
             }
+            inCorrectControls.play();
             setStatus("wrong");
             // if there is no error, that means the backend has been hit and the hearts reduced, so we must reflect that on the front end.
             if (!response?.error) {
@@ -109,6 +117,10 @@ export const Quiz = ({
     }
   };
 
+  if (!challenge) {
+    return <div>Finished challenge</div>;
+  }
+
   const title =
     challenge.type === "ASSIST"
       ? "Select the correct meaing"
@@ -116,6 +128,8 @@ export const Quiz = ({
   //------------------------------------------------------------
   return (
     <>
+      {inCorrectAudio}
+      {correctAudio}
       <Header
         hearts={hearts}
         percentage={percentage}

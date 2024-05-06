@@ -184,7 +184,29 @@ const main = async () => {
         audioSrc: "/es_zombie.mp3",
       },
     ]);
-
+    await db.insert(schema.challenges).values([
+      {
+        id: 4,
+        lessonId: 2, // verbs
+        type: "SELECT",
+        order: 1,
+        question: 'How do you say "Man"?',
+      },
+      {
+        id: 5,
+        lessonId: 2, // verbs
+        type: "ASSIST",
+        order: 2,
+        question: "The Man",
+      },
+      {
+        id: 6,
+        lessonId: 2, // verbs
+        type: "SELECT",
+        order: 3,
+        question: "Which one is Zombie?",
+      },
+    ]);
     console.log("Seeding finished");
   } catch (error) {
     console.error(error);

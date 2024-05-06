@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Quiz } from "./quiz";
 
 const LessonPage = async () => {
+  // when /lesson is revalidated these two methods are called again
   const lessonData = getLesson();
   const userProgressData = getUserProgress();
 

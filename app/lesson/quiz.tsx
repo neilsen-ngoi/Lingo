@@ -8,6 +8,7 @@ import { Challenge } from "./challenge";
 import { Footer } from "./footer";
 import { upsertChallengeProgress } from "@/actions/challenge-progress";
 import { toast } from "sonner";
+import { reduceHearts } from "@/actions/user-progress";
 
 type Props = {
   initialPercentage: number;
@@ -90,7 +91,21 @@ export const Quiz = ({
           .catch(() => toast.error("Somthing went wrong, please try again"));
       });
     } else {
-      console.error("Incorrect answer");
+      startTransition(() => {
+        reduceHearts(challenge.id)
+          .then((response) => {
+            if (response?.error === "hearts") {
+              console.error("Missing hearts");
+              return;
+            }
+            setStatus("wrong");
+            // if there is no error, that means the backend has been hit and the hearts reduced, so we must reflect that on the front end.
+            if (!response?.error) {
+              setHearts((prev) => Math.max(prev - 1, 0));
+            }
+          })
+          .catch(() => toast.error("Something went wrong, please try again"));
+      });
     }
   };
 

@@ -6,5 +6,5 @@ Tailwind
 Clerk
 Drizzle 
 Stripe
-Bun 
 shadcn  
+Bun 

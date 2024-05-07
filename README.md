@@ -6,6 +6,6 @@ React 18
 Tailwind  
 Clerk  
 Drizzle
-NeonDB
-Stripe  
+NeonDB  
+Stripe    
 Bun   

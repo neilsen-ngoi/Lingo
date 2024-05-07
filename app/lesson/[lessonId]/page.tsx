@@ -1,10 +1,16 @@
 import { getLesson, getUserProgress } from "@/db/queries";
 import { redirect } from "next/navigation";
-import { Quiz } from "./quiz";
+import { Quiz } from "../quiz";
 
-const LessonPage = async () => {
+type Props = {
+  params: {
+    lessonId: number;
+  };
+};
+
+const LessonIdPage = async ({ params }: Props) => {
   // when /lesson is revalidated these two methods are called again
-  const lessonData = getLesson();
+  const lessonData = getLesson(params.lessonId);
   const userProgressData = getUserProgress();
 
   const [lesson, userProgress] = await Promise.all([
@@ -32,4 +38,4 @@ const LessonPage = async () => {
   );
 };
 
-export default LessonPage;
+export default LessonIdPage;

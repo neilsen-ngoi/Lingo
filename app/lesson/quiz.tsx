@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Confetti from "react-confetti";
-import { challengeOptions, challenges } from "@/db/schema";
+import { challengeOptions, challenges, userSubscription } from "@/db/schema";
 import { useState, useTransition } from "react";
 import { Header } from "./header";
 import { QuestionBubble } from "./question-bubble";
@@ -24,7 +24,11 @@ type Props = {
     completed: boolean;
     challengeOptions: (typeof challengeOptions.$inferSelect)[];
   })[];
-  userSubscription: any; //TODO: replace with subscription DB type
+  userSubscription:
+    | (typeof userSubscription.$inferSelect & {
+        isActive: boolean;
+      })
+    | null;
 };
 //-------------------------------------------------------------
 export const Quiz = ({
@@ -209,7 +213,6 @@ export const Quiz = ({
               <Challenge
                 options={options}
                 onSelect={onSelect}
-                //TODO: make status dynamically update:completed
                 status={status}
                 selectedOption={selectedOption}
                 disabled={pending}

@@ -1,7 +1,7 @@
 "use server";
 
 import db from "@/db/drizzle";
-import { getUserProgress } from "@/db/queries";
+import { getUserProgress, getUserSubscription } from "@/db/queries";
 import { auth } from "@clerk/nextjs";
 import { and, eq, is } from "drizzle-orm";
 import { challengeProgress, challenges, userProgress } from "@/db/schema";
@@ -13,7 +13,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
     throw new Error("Unauthorized");
   }
   const currentUserProgress = await getUserProgress();
-  //TODO: hande subscription later
+  const userSubscription = await getUserSubscription();
 
   if (!currentUserProgress) {
     throw new Error("User progress not found");
@@ -33,9 +33,14 @@ export const upsertChallengeProgress = async (challengeId: number) => {
     ),
   });
   //determine if user has already done this challenge
-  //TODO: Not if user has a subscription
+
   const isPractice = !!existingChallengeProgress;
-  if (currentUserProgress.hearts === 0 && !isPractice) {
+
+  if (
+    currentUserProgress.hearts === 0 &&
+    !isPractice &&
+    !userSubscription?.isActive
+  ) {
     return { error: "hearts" };
   }
   // update challengeProgress

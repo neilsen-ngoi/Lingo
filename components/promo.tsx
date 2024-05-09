@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 export const Promo = () => {
   return (
@@ -12,7 +13,9 @@ export const Promo = () => {
           <h3 className=" font-bold text-lg">Upgrade to Pro</h3>
         </div>
         <p className=" text-muted-foreground">Get unlimited hearts and more!</p>
-        <Button variant={"super"} />
+        <Button asChild variant={"super"} className=" w-full" size={"lg"}>
+          <Link href={"/shop"}>Upgrade Today!</Link>
+        </Button>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import {
   userSubscription,
   challenges,
 } from "./schema";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 //load user progress
 export const getUserProgress = cache(async () => {

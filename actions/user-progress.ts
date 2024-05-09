@@ -8,7 +8,7 @@ import {
   getUserSubscription,
 } from "@/db/queries";
 import { challengeProgress, userProgress, challenges } from "@/db/schema";
-import { auth, currentUser } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { error } from "console";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";

@@ -2,7 +2,7 @@
 
 import db from "@/db/drizzle";
 import { getUserProgress, getUserSubscription } from "@/db/queries";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { and, eq, is } from "drizzle-orm";
 import { challengeProgress, challenges, userProgress } from "@/db/schema";
 import { revalidatePath } from "next/cache";

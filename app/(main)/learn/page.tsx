@@ -13,6 +13,7 @@ import { Header } from "./header";
 import { Unit } from "./unit";
 import { lessons, units as unitSchema } from "@/db/schema";
 import { Promo } from "@/components/promo";
+import { Quests } from "@/components/quests";
 
 const LearnPage = async () => {
   const userProgressData = getUserProgress();
@@ -57,6 +58,7 @@ const LearnPage = async () => {
           hasActiveSubscription={isPro}
         />
         {!isPro && <Promo />}
+        <Quests points={userProgress.points} />
       </StickyWrapper>
 
       <FeedWrapper>

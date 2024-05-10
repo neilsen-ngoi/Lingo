@@ -2,11 +2,11 @@ import { cache } from "react";
 import db from "./drizzle";
 import { eq } from "drizzle-orm";
 import {
-  units,
   userProgress,
   challengeProgress,
   lessons,
   userSubscription,
+  units,
 } from "./schema";
 import { auth } from "@clerk/nextjs/server";
 
@@ -84,7 +84,7 @@ export const getCourses = cache(async () => {
 });
 
 export const getCoursesById = cache(async (courseId: number) => {
-  const data = await db.query.units.findFirst({
+  const data = await db.query.courses.findFirst({
     where: eq(units.id, courseId),
     with: {
       units: {

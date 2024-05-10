@@ -31,9 +31,9 @@ export const units = pgTable("units", {
 });
 
 export const unitsRelations = relations(units, ({ many, one }) => ({
-  course: one(courses, {
+  course: one(units, {
     fields: [units.courseId],
-    references: [courses.id],
+    references: [units.id],
   }),
   lessons: many(lessons),
 }));
@@ -120,7 +120,7 @@ export const userProgress = pgTable("user_progress", {
   userId: text("user_id").primaryKey(),
   userName: text("user_name").notNull().default("User"),
   userImageSrc: text("user_image_src").notNull().default("/mascot.svg"),
-  activeCourseId: integer("active_course_id").references(() => courses.id, {
+  activeCourseId: integer("active_course_id").references(() => units.id, {
     onDelete: "cascade",
   }),
   hearts: integer("hearts").notNull().default(5),
@@ -128,9 +128,9 @@ export const userProgress = pgTable("user_progress", {
 });
 
 export const userProgressRelations = relations(userProgress, ({ one }) => ({
-  activeCourse: one(courses, {
+  activeCourse: one(units, {
     fields: [userProgress.activeCourseId],
-    references: [courses.id],
+    references: [units.id],
   }),
 }));
 

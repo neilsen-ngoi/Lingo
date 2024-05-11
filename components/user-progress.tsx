@@ -2,10 +2,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { InfinityIcon } from "lucide-react";
-import { units } from "@/db/schema";
+import { courses, units } from "@/db/schema";
 
 type Props = {
-  activeCourse: typeof units.$inferSelect;
+  activeCourse: typeof courses.$inferSelect;
   hearts: number;
   points: number;
   hasActiveSubscription: boolean;

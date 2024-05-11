@@ -78,7 +78,7 @@ export const getUnits = cache(async () => {
 });
 
 export const getCourses = cache(async () => {
-  const data = await db.query.units.findMany();
+  const data = await db.query.courses.findMany();
 
   return data;
 });
@@ -151,7 +151,7 @@ export const getCourseProgress = cache(async () => {
 // if no lesson ID is selected then firstUncompleteLesson is loaded
 export const getLesson = cache(async (id?: number) => {
   const { userId } = await auth();
-  // check for data query sake
+
   if (!userId) {
     return null;
   }
